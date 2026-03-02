@@ -548,6 +548,7 @@ a {
 .auth {
   max-width: 400px;
   margin: 80px auto;
+  margin-top: 100px;
   background: white;
   padding: 30px;
   border-radius: 10px;
@@ -669,99 +670,6 @@ a {
   transition: opacity 0.5s ease-in-out;
 }
 
-/* User Data Form Styles */
-/* .user-data-form {
-  max-width: 600px;
-  margin: 100px auto;
-  background: white;
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-  display: flex;
-  flex-direction: column;
-  font-family: 'Playfair Display', serif;
-}
-
-.user-data-form h2 {
-  margin-bottom: 15px;
-  color: #1a365d;
-  text-align: center;
-  font-size: 2rem;
-}
-
-.user-data-form p {
-  margin-bottom: 30px;
-  color: #666;
-  font-size: 16px;
-  text-align: center;
-  font-family: 'Lato', sans-serif;
-}
-
-.user-data-form form {
-  display: flex;
-  flex-direction: column;
-}
-
-.user-data-form input,
-.user-data-form select,
-.user-data-form textarea {
-  margin-bottom: 20px;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 16px;
-  font-family: 'Lato', sans-serif;
-  transition: border-color 0.3s ease;
-}
-
-.user-data-form input:focus,
-.user-data-form select:focus,
-.user-data-form textarea:focus {
-  outline: none;
-  border-color: #ff7a18;
-  box-shadow: 0 0 0 2px rgba(255, 122, 24, 0.2);
-}
-
-.user-data-form select {
-  background: white;
-  cursor: pointer;
-}
-
-.user-data-form textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-.user-data-form button {
-  padding: 15px;
-  background: linear-gradient(135deg, #ff7a18, #e66a15);
-  border: none;
-  color: white;
-  font-size: 18px;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 10px;
-}
-
-.user-data-form button:hover {
-  background: linear-gradient(135deg, #e66a15, #cc5a12);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 122, 24, 0.3);
-}
-
-.privacy-note {
-  margin-top: 25px;
-  font-size: 14px;
-  color: #888;
-  text-align: center;
-  font-family: 'Lato', sans-serif;
-}
-
-/* Responsive Design for User Data Form */
-
-
 .callback-form {
   max-width: 600px;
   margin: 100px auto;
@@ -837,7 +745,7 @@ label {
   border: 1px solid #ccc !important;
   border-radius: 4px !important;
   font-size: 14px !important;
-  padding-left: 60px !important;
+  padding-left: 42px !important;
 }
 
 /*country Flag dropdown button */
@@ -892,11 +800,11 @@ label {
 
 
 .checkbox-row {
-  display: flex;
-  justify-content: space-between;  /*  equal spacing in each option across full width */
+  display: flex;  /*  equal spacing in each option across full width */
   width: 100%;
   margin-top: 0;
   margin-bottom: 15px;
+  flex-direction: column;
 }
 
 .checkbox-item {
@@ -983,17 +891,119 @@ select {
 .callback-form button:hover {
   background: #003d99;
 }
-/* @media (max-width: 768px) {
-  .user-data-form {
-    margin: 80px 20px;
-    padding: 30px 20px;
-  }
 
-  .user-data-form h2 {
-    font-size: 1.8rem;
-  }
 
-  .user-data-form p {
-    font-size: 14px;
-  }
-} */
+/* ---------Contact Us Form -------------*/
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f2f4f8;
+}
+
+/* Page wrapper */
+.page-wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-left: 20%;
+}
+
+/* Main Card */
+.contact-card {
+  width: 900px;
+  background: white;
+  border-radius: 12px;
+  display: flex;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* Left side */
+.contact-left {
+  width: 40%;
+  padding: 40px;
+  background: #f8f9fc;
+}
+
+.contact-left h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.contact-left p {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.contact-info h4,
+.socials h4 {
+  margin-bottom: 8px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.social-icons span {
+  width: 40px;
+  height: 40px;
+  background: #e4e6eb;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.social-icons span:hover {
+  background: #d0d4db;
+}
+
+/* Right side */
+.contact-right {
+  width: 60%;
+  padding: 40px;
+}
+
+.contact-right form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-right input,
+.contact-right textarea {
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.contact-right input:focus,
+.contact-right textarea:focus {
+  border-color: #2d5be3;
+  outline: none;
+}
+
+.contact-right button {
+  margin-top: 10px;
+  padding: 14px;
+  border: none;
+  border-radius: 6px;
+  background: #2d5be3;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.contact-right button:hover {
+  background: #1f45c1;
+}
