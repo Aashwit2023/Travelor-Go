@@ -53,7 +53,8 @@ export default function Trekking_cards  ( {items,heading})  {
                           <p>{theme.description}</p>
 
                           <div className='trek-button'>
-                            <Link to={theme.trekking_info}> <button>Get Trek Info</button></Link>
+                            <Link to={theme.trekking_info}> <button className='trek-info'>Get Trek Info</button></Link>
+                            <button className='view-dates'>View Dates</button>
                           </div>
                       </div>
                   ))}

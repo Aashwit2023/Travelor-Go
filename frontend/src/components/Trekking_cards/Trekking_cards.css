@@ -94,22 +94,34 @@
 }
 
 .trek-button{
-    text-align: center;
+    display: flex;
+    margin: 5px 24px 18px;
+    gap: 10px;
 }
 
 .trek-button button {
-  margin-top: 5px;
-  margin-bottom: 18px;
-  padding: 10px 70px;
-  background: #ff7a18;
+  
+  padding: 9px 35px;
+  
   border: none;
   color: white;
-  font-size: 18px;
+  font-size: 17px;
   border-radius: 5px;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
-button:hover {
+.trek-info{
+    background-color:#ff7a18 ;
+}
+.view-dates{
+    background-color: rgb(8, 134, 134);
+}
+.trek-info:hover {
   background: #e67225;
-  transform: scale(1.1);
+  transform: scale(0.9);
+}
+
+.view-dates:hover {
+  background:rgb(3, 112, 112);
+  transform: scale(0.9);
 }

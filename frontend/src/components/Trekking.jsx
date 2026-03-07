@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 import trekking1 from '../assets/trekking1.jpg';
 import trekking2 from '../assets/trekking2.jpg';
 import trekking33 from '../assets/trekking33.jpg';
@@ -11,7 +12,6 @@ import baliPassCamp from "../assets/bali_pass.jpg";
 import everest_base_camp from "../assets/everest_base_camp.jpg";
 import frndship from "../assets/friendship_peak.jpg";
 
-import Trekking_info1 from './Trekking_cards/Trekking_info1'
 
 
 
@@ -35,63 +35,71 @@ export default function Trekking() {
                   difficulty:"moderate",
                   title: "Adventure",
                   description: "Thrilling expeditions for the bold explorer.",
-                  trekking_info:Trekking_info1
+                  // trekking_info:"/trekking_info1"
                 },
                 {
                   image: culture,
                   days:"8 days",
                   difficulty:"moderate-difficult",
                   title: "Cultural Immersion",
-                  description: "Dive deep into local traditions and heritage."
+                  description: "Dive deep into local traditions and heritage.",
+                  // trekking_info:"/trekking_info1"
                 },
                 {
                   image: trekking,
                   days:"9 days",
                   difficulty:"difficult",
                   title: "Trekking",
-                  description: "Epic trails through the world's most stunning landscapes."
+                  description: "Epic trails through the world's most stunning landscapes.",
+                  // trekking_info:"/trekking_info1"
                 },
                 {
                   image: baliPassCamp,
                   days:"7 days",
                   difficulty:"moderate-difficult",
                   title: "cmp_Adventure",
-                  description: "Thrilling expeditions for the bold explorer."
+                  description: "Thrilling expeditions for the bold explorer.",
+                  // trekking_info:"/trekking_info1"
                 },
                 {
                   image: everest_base_camp,
                   days:"9 days",
                   difficulty:"difficult",
                   title: "everest_base_camp",
-                  description: "Dive deep into local traditions and heritage."
+                  description: "Dive deep into local traditions and heritage.",
+                  // trekking_info:"/trekking_info1"
                 },
                 {
                   image: frndship,
                   days:"8 days",
                   difficulty:"moderate",
                   title: "Trekking",
-                  description: "Epic trails through the world's most stunning landscapes."
+                  description: "Epic trails through the world's most stunning landscapes.",
+                  // trekking_info:"/trekking_info1"
                 },
                 {
                   image: baliPassCamp,
                   days:"5 days",
                   difficulty:"moderate",
                   title: "cmp_Adventure",
-                  description: "Thrilling expeditions for the bold explorer."
+                  description: "Thrilling expeditions for the bold explorer.",
+                  // trekking_info:"/trekking_info1"
                 },
                 {
                   image: everest_base_camp,
                   days:"6 days",
                   difficulty:"moderate",
                   title: "everest_base_camp",
-                  description: "Dive deep into local traditions and heritage."
+                  description: "Dive deep into local traditions and heritage.",
+                  // trekking_info:"/trekking_info1"
                 },
                 {
                   image: frndship,
                   days:"8 days",
                   difficulty:"moderate",
                   title: "Trekking",
-                  description: "Epic trails through the world's most stunning landscapes."
+                  description: "Epic trails through the world's most stunning landscapes.",
+                  // trekking_info:"/trekking_info1"
                 }
               ];
   
