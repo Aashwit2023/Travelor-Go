@@ -1,9 +1,21 @@
 import { useState, useEffect } from 'react';
+
 import trekking1 from '../assets/trekking1.jpg';
 import trekking2 from '../assets/trekking2.jpg';
-import trekking3 from '../assets/trekking3.jpg';
+import trekking33 from '../assets/trekking33.jpg';
 
-const trekImages = [trekking1, trekking2, trekking3];
+import Trekking_cards from './Trekking_cards/Trekking_cards';
+import adventure from "../assets/adventure.jpg";
+import culture from "../assets/culture.jpg";
+import trekking from "../assets/Trekking.jpg";
+import baliPassCamp from "../assets/bali_pass.jpg";
+import everest_base_camp from "../assets/everest_base_camp.jpg";
+import frndship from "../assets/friendship_peak.jpg";
+
+
+
+
+const trekImages = [trekking2,trekking1,  trekking33];
 
 export default function Trekking() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -15,6 +27,82 @@ export default function Trekking() {
 
     return () => clearInterval(interval);
   }, []);
+
+  const themes = [
+                {
+                  image: adventure,
+                  days:"6 days",
+                  difficulty:"moderate",
+                  title: "Adventure",
+                  description: "Thrilling expeditions for the bold explorer.",
+                  // trekking_info:"/trekking_info1"
+                },
+                {
+                  image: culture,
+                  days:"8 days",
+                  difficulty:"moderate-difficult",
+                  title: "Cultural Immersion",
+                  description: "Dive deep into local traditions and heritage.",
+                  // trekking_info:"/trekking_info1"
+                },
+                {
+                  image: trekking,
+                  days:"9 days",
+                  difficulty:"difficult",
+                  title: "Trekking",
+                  description: "Epic trails through the world's most stunning landscapes.",
+                  // trekking_info:"/trekking_info1"
+                },
+                {
+                  image: baliPassCamp,
+                  days:"7 days",
+                  difficulty:"moderate-difficult",
+                  title: "cmp_Adventure",
+                  description: "Thrilling expeditions for the bold explorer.",
+                  // trekking_info:"/trekking_info1"
+                },
+                {
+                  image: everest_base_camp,
+                  days:"9 days",
+                  difficulty:"difficult",
+                  title: "everest_base_camp",
+                  description: "Dive deep into local traditions and heritage.",
+                  // trekking_info:"/trekking_info1"
+                },
+                {
+                  image: frndship,
+                  days:"8 days",
+                  difficulty:"moderate",
+                  title: "Trekking",
+                  description: "Epic trails through the world's most stunning landscapes.",
+                  // trekking_info:"/trekking_info1"
+                },
+                {
+                  image: baliPassCamp,
+                  days:"5 days",
+                  difficulty:"moderate",
+                  title: "cmp_Adventure",
+                  description: "Thrilling expeditions for the bold explorer.",
+                  // trekking_info:"/trekking_info1"
+                },
+                {
+                  image: everest_base_camp,
+                  days:"6 days",
+                  difficulty:"moderate",
+                  title: "everest_base_camp",
+                  description: "Dive deep into local traditions and heritage.",
+                  // trekking_info:"/trekking_info1"
+                },
+                {
+                  image: frndship,
+                  days:"8 days",
+                  difficulty:"moderate",
+                  title: "Trekking",
+                  description: "Epic trails through the world's most stunning landscapes.",
+                  // trekking_info:"/trekking_info1"
+                }
+              ];
+  
 
   return (
     <div className="trekking-container">
@@ -29,8 +117,12 @@ export default function Trekking() {
         <div className="slideshow-overlay" />
       </div>
       
-      <div className="trekking-content" style={{ marginTop: '100px' }}>
+      <div className="trekking-content" style={{
+         marginTop: '100px',
+         marginLeft:'25px'
+          }}>
         <h2>Trekking</h2>
+        <hr style={{ width: '15%',height:'0.25rem',background:'orange'}}/>
         <p>Embark on thrilling trekking adventures in the mountains.</p>
         <p>Experience the beauty of nature with our guided treks.</p>
       </div>
@@ -79,13 +171,10 @@ export default function Trekking() {
         .trekking-content {
           position: relative;
           z-index: 1;
-          text-align: center;
+          text-align: relative;
           padding: 40px 20px;
           color: white;
-          z-index: 1;
-          text-align: center;
-          padding: 40px 20px;
-          color: white;
+          
           font-family: Arial, sans-serif;
         }
 
@@ -101,6 +190,10 @@ export default function Trekking() {
           text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
       `}</style>
+
+      
+      <Trekking_cards items={themes} heading="Choose the Trek" />
+      
     </div>
   );
 }

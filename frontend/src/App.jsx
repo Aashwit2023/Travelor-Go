@@ -7,6 +7,7 @@ import Contact from './components/Contact'
 import Trekking from './components/Trekking'
 import Expeditions from './components/Expeditions'
 import UserDataForm from './components/UserDataForm'
+// import Trekking_info1 from './components/Trekking_cards/Trekking_info1'
 
 export default function App() {
   return (
@@ -20,6 +21,8 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/trekking" element={<Trekking />} />
         <Route path="/expeditions" element={<Expeditions />} />
+
+        {/* <Route path="/trekking_info1" element={<Trekking_info1 />} /> */}
       </Routes>
     </> 
   )
