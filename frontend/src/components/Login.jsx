@@ -1,18 +1,19 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import { loginUser } from '../api/api';
 
 
 export default function Login() {
   const [user, setUser] = useState({
     email: "",
-    password : "",
-     
+    password : ""     
   });
 
-  console.log(user)
-  // handling the Input values
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
   const handleInput = (e) => {
-    console.log(e);
     let name = e.target.name;
     let value = e.target.value;
     
@@ -23,16 +24,40 @@ export default function Login() {
   }
 
   // Handling the form submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Welcome back!!");
+    setError("");
+    setSuccess("");
+    setLoading(true);
+
+    try {
+      const {response, data} = await  loginUser(user.email, user.password);
+
+      if (response.ok) {
+        setSuccess(data.message || "Logged in successfully!");
+        setUser({
+          email: "",
+          password: "",
+        });
+      } else {
+        setError(data.message || "Login failed. Please check your Credentials.");
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+   
   }
 
    return ( 
       <form onSubmit={handleSubmit}>
     <div className="auth"> 
-      <h2>Login to TravelX</h2> 
+      <h2>Login to TravelX</h2>
       <p>Welcome back! Please sign in to your account.</p> 
+
+      {error && <p style={{ color: "#ff4d4d", fontSize: "14px", margin: "8px 0" }}>{error}</p>}
+      {success && <p style={{ color: "#4dff88", fontSize: "14px", margin: "8px 0" }}>{success}</p>}
       <input type="email" name="email" placeholder="Email" 
         value = {user.email}
         onChange={handleInput}
@@ -47,7 +72,9 @@ export default function Login() {
         </label> 
         <Link to="/forgot-password">Forgot password?</Link> 
       </div>
-      <button>Login</button> 
+      <button disabled={loading}>
+        {loading ? "Logging in..." : "Login"}
+      </button>
       <p>Don't have an account? <Link to="/signup"> Sign up here </Link></p>
     </div>
       </form>

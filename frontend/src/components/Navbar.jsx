@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom' 
 import { useState } from 'react'
+import "../style.css"
 
 export default function Navbar() { 
   const [isOpen, setIsOpen] = useState(false); 
@@ -9,10 +10,10 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="nav">
-      <div className="container nav-content">
+    <nav className="nav border-b-2 border-yellow-300">
+      <div className="w-[90%] max-w-300 mx-auto flex justify-between items-center">
         <Link to="/">
-          <h2>TravelX</h2>
+          <h2>Colway Expedition</h2>
         </Link>
 
         <button className="hamburger" onClick={toggleMenu}>

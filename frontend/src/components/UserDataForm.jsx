@@ -2,96 +2,9 @@ import { useState } from 'react';
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Select from "react-select";
+import { requestCallback } from '../api/api';
 
 export default function UserDataForm() {
-  // const [formData, setFormData] = useState({
-  //   name: '',
-  //   email: '',
-  //   phone: '',
-  //   interest: '',
-  //   message: ''
-  // });
-
-  // const handleChange = (e) => {
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.name]: e.target.value
-  //   });
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // Handle form submission here (e.g., send to backend)
-  //   console.log('User data submitted:', formData);
-  //   alert('Thank you for sharing your details! We\'ll reach out with personalized travel recommendations soon.');
-  //   // Reset form
-  //   setFormData({
-  //     name: '',
-  //     email: '',
-  //     phone: '',
-  //     interest: '',
-  //     message: ''
-  //   });
-  // };
-
-  // return (
-  //   <div className="user-data-form">
-  //     <h2>Discover Your Next Adventure</h2>
-  //     <p>Share your details with us, and let's craft unforgettable travel experiences tailored just for you. Whether you're dreaming of mountain treks, beach getaways, or cultural explorations, we're here to make it happen!</p>
-  //     <form onSubmit={handleSubmit}>
-  //       <input
-  //         type="text"
-  //         name="name"
-  //         placeholder="Your Full Name"
-  //         value={formData.name}
-  //         onChange={handleChange}
-  //         required
-  //       />
-  //       <input
-  //         type="email"
-  //         name="email"
-  //         placeholder="Your Email Address"
-  //         value={formData.email}
-  //         onChange={handleChange}
-  //         required
-  //       />
-  //       <input
-  //         type="tel"
-  //         name="phone"
-  //         placeholder="Your Phone Number"
-  //         value={formData.phone}
-  //         onChange={handleChange}
-  //         required
-  //       />
-  //       <select
-  //         name="interest"
-  //         value={formData.interest}
-  //         onChange={handleChange}
-  //         required
-  //       >
-  //         <option value="">Select Your Travel Interest</option>
-  //         <option value="trekking">Trekking & Hiking</option>
-  //         <option value="beach">Beach Holidays</option>
-  //         <option value="cultural">Cultural Tours</option>
-  //         <option value="adventure">Adventure Sports</option>
-  //         <option value="wildlife">Wildlife Safaris</option>
-  //         <option value="luxury">Luxury Travel</option>
-  //       </select>
-  //       <textarea
-  //         name="message"
-  //         placeholder="Tell us more about your dream trip or any specific preferences..."
-  //         value={formData.message}
-  //         onChange={handleChange}
-  //         rows="5"
-  //         required
-  //       ></textarea>
-  //       <button type="submit">Start Planning My Trip</button>
-  //     </form>
-  //     <p className="privacy-note">We respect your privacy and will only use your information to provide personalized travel suggestions.</p>
-  //   </div>
-  // );
-
-  const [selectedRegion, setSelectedRegion] = useState(null);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -104,9 +17,15 @@ export default function UserDataForm() {
     concerns: [],
     month: "",
     region: "",
-    special: "",
-    treks: []
+    specialProgram: "",
+    treks: "",
+    call: "",
+    slots: ""
   });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
 
   const cityOptions = [
@@ -168,10 +87,44 @@ export default function UserDataForm() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setSuccess("");
+    setLoading(true);
     console.log("Form data", formData);
     // send to your backend or API
+
+    try {
+      const { response, data } = await requestCallback(formData);
+      if (response.ok) {
+        setSuccess(data.message || "Request submitted successfully!");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          whatsapp: "",
+          city: "",
+          experience: "",
+          concerns: [],
+          month: "",
+          region: "",
+          specialProgram: "",
+          treks: "",
+          call: "",
+          slots: ""
+        });
+      } else {
+        setError(data.message || "Submission failed. Please try again.");
+      }
+      alert("Request submitted successfully! We will get back to you soon.");
+    } catch (error) {
+      console.log(error);
+      setError("An error occurred Please try again later.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -182,6 +135,9 @@ export default function UserDataForm() {
       <p>We’ll help you choose the right one, find the best season, and prepare well.
         Schedule a call with our Trek Advisors for personalised guidance.
         We’ll reach out during your preferred time within Mon–Fri, 9:30 AM–6:30 PM.</p>
+      
+      {error && <p style={{ color: "#ff4d4d", fontSize: "14px", margin: "8px 0" }}>{error}</p>}
+      {success && <p style={{ color: "#4dff88", fontSize: "14px", margin: "8px 0" }}>{success}</p>}
 
       <label>Name <span className="required">*</span></label>
       <div className="row">
@@ -207,7 +163,8 @@ export default function UserDataForm() {
       <input
         type="email"
         name="email"
-        placeholder="Email "
+        placeholder="Email"
+        value={formData.email}
         onChange={handleChange}
         required
       />
@@ -217,13 +174,13 @@ export default function UserDataForm() {
           <label>Phone <span className="required">*</span></label>
           <PhoneInput
             country={"in"}
-            enableSearch={true}
-            disableSearchIcon={false}
+            value={formData.phone}
+            onChange={(value) => setFormData({ ...formData, phone: value })}
             inputProps={{
               name: "phone",
               required: true,
             }}
-            containerClass="phone-container"
+            containerClass="phone-container" 
             inputClass="phone-input"
             buttonClass="flag-button"
           />
@@ -233,16 +190,15 @@ export default function UserDataForm() {
           <label>Whatsapp Number</label>
           <PhoneInput
             country={"in"}
-            enableSearch={true}
-            disableSearchIcon={false}
+            value={formData.whatsapp}
+            onChange={(value) => setFormData({ ...formData, whatsapp: value })}
             inputProps={{
-              name: "whatsapp number",
-              required: true,
+              name: "whatsapp",
             }}
-
             containerClass="phone-container"
             inputClass="phone-input"
             buttonClass="flag-button"
+            required={true}
           />
         </div>
       </div>
@@ -257,12 +213,12 @@ export default function UserDataForm() {
 
         <Select
           options={cityOptions}
-          value={selectedRegion}
-          onChange={setSelectedRegion}
+          value={cityOptions.find(option => option.value === formData.city)}
+          onChange={(selected) =>
+            setFormData({ ...formData, city: selected?.value })
+          }
           placeholder="Search & Select City"
-          isSearchable={true}
-          noOptionsMessage={() => "No options found"}
-          classNamePrefix="custom-select"
+          isSearchable
         />
       </div>
 
@@ -270,45 +226,57 @@ export default function UserDataForm() {
       <label>Do you have previous trekking experience?</label>
 
       <div className='checkbox-group'>
-        <label className="checkbox-line">
-          <input
-            type="checkbox"
-            value="First Trek"
-            onChange={handleChange}
-          />
-          <span> No, this is my first trek</span>
-        </label>
+          <label className='checkbox-line'>
+            <input
+              type="radio"
+              name="experience"
+              value="First Trek"
+              checked={formData.experience === "First Trek"}
+              onChange={handleChange}
+            />
+            No, this is my first trek
+          </label>
 
-        <label className="checkbox-line">
-          <input
-            type="checkbox"
-            value="1-2 Treks"
-            onChange={handleChange}
-          />
-          <span> Yes, 1-2 treks</span>
-        </label>
+          <label className='checkbox-line'>
+            <input
+              type="radio"
+              name="experience"
+              value="1-2 Treks"
+              checked={formData.experience === "1-2 Treks"}
+              onChange={handleChange}
+            />
+            Yes, 1-2 treks
+          </label>
 
-        <label className="checkbox-line">
-          <input
-            type="checkbox"
-            value="1-2 Treks"
-            onChange={handleChange}
-          />
-          <span> Yes, 3 or more treks</span>
-        </label>
+          <label className='checkbox-line'>
+            <input
+              type="radio"
+              name="experience"
+              value="3+ Treks"
+              checked={formData.experience === "3+ Treks"}
+              onChange={handleChange}
+            />
+            Yes, 3 or more treks
+          </label>
       </div>
 
       {/* Concerns */}
       <label>Any specific concerns you want us to help with?</label>
       <div className="checkbox-row">
-        <label className="checkbox-item"><input type="checkbox" value="Fitness" /> Fitness</label>
-        <label className="checkbox-item"><input type="checkbox" value="Gear" /> Gear</label>
-        <label className="checkbox-item"><input type="checkbox" value="Altitude" /> Altitude</label>
+        <label className="checkbox-item"><input type="checkbox" name='concerns'  value="Fitness" checked={formData.concerns.includes("Fitness")} onChange={handleChange} /> Fitness</label>
+        <label className="checkbox-item"><input type="checkbox" name='concerns' value="Gear" checked={formData.concerns.includes("Gear")} onChange={handleChange} /> Gear</label>
+        <label className="checkbox-item"><input type="checkbox" name='concerns' value="Altitude" checked={formData.concerns.includes("Altitude")} onChange={handleChange} /> Altitude</label>
       </div>
 
       {/* Month */}
       <label>Which month are you planning for?</label>
-      <input type="month" name="month" />
+      <input 
+        type="month" 
+        name="month"
+        value={formData.month}
+        onChange={handleChange}
+        required={true}
+      />
 
       {/* Region */}
       <label>
@@ -320,12 +288,15 @@ export default function UserDataForm() {
         placeholder="Search & Select Trek"
         isSearchable={true}
         noOptionsMessage={() => "No options found"}
-        onChange={(selected) => console.log(selected?.value)}
+        value={trekOptions.find(option => option.value === formData.region)}
+        onChange={(selected) => 
+          setFormData({ ...formData, region: selected?.value })
+        }
       />
 
       {/* Special Program */}
       <label>Are you looking for a special program? If yes, then which?</label>
-      <select name="program">
+      <select name="specialProgram" value={formData.specialProgram} onChange={handleChange}>
         <option value="">Select Program</option>
         <option>Corporate Trek</option>
         <option>School Trek</option>
@@ -339,7 +310,7 @@ export default function UserDataForm() {
         <label>
           Treks <span className="required">*</span>
         </label>
-        <select name="treks" required>
+        <select name="treks" value={formData.treks} onChange={handleChange} required>
           <option value="">Select Trek</option>
           <option>Hampta Pass</option>
           <option>Valley of Flowers</option>
@@ -355,22 +326,22 @@ export default function UserDataForm() {
         <span className="required">*</span>
       </label>
       <div className="choice">
-        <label className="choice-item"><input type="radio" name="call" value="Yes" required /> Yes</label>
-        <label className="choice-item"><input type="radio" name="call" value="No" required /> No</label>
+        <label className="choice-item"><input type="radio" name="call" value="Yes" checked={formData.call === "Yes"} onChange={handleChange} required /> Yes</label>
+        <label className="choice-item"><input type="radio" name="call" value="No" checked={formData.call === "No"} onChange={handleChange} required /> No</label>
       </div>
 
       <div className="slots">
         <label>
           Please choose a time slot based on your availabilty
         </label>
-        <select name="slots" required>
+        <select name="slots" value={formData.slots} onChange={handleChange} required>
           <option value="">Select slots</option>
-          <option value="">11 : 00 AM to 01 : 00 PM IST</option>
-          <option>Not available on above timings</option>
+          <option value="11:00 AM to 01:00 PM IST">11 : 00 AM to 01 : 00 PM IST</option>
+          <option value="Not available on above timings">Not available on above timings</option>
           
         </select>
       </div>
-      <button type="submit">Request Callback</button>
+      <button type="submit" disabled={loading}>{loading ? "Submitting..." : "Request Callback"}</button>
     </form>
   );
 

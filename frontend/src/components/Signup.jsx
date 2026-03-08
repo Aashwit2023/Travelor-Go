@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom' 
 import { useState } from 'react'
+import { signUpUser } from '../api/api';
 
 export default function Signup() {
-
   const [user, setUser] = useState({
     firstname: "",
     lastname: "",
@@ -40,21 +40,15 @@ export default function Signup() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:3000/api/auth/signUp", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      const { response, data } = await signUpUser({
           firstname: user.firstname,
           lastname: user.lastname,
           email: user.email,
           password: user.password,
           cnfmPassword: user.cnfm_password,
-        }),
-      });
+        });
 
-      const data = await response.json();
+      // const data = await response.json();
 
       if (response.ok) {
         setSuccess(data.message || "Account created successfully!");
@@ -70,7 +64,7 @@ export default function Signup() {
       }
       alert("Thank you for choosing us.");
     } catch (error) {
-      setError("An error occurred. Please try again later.");
+      console.error(error);
     } finally {
       setLoading(false);
     }

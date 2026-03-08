@@ -3,13 +3,10 @@
   import ExploreTheme from "./Cards/ExploreTheme";
   import adventure from "../assets/adventure.jpg";
   import culture from "../assets/culture.jpg";
-  import trekking from "../assets/Trekking.jpg";
+  import trekking from "../assets/trekking.jpg";
   import baliPassCamp from "../assets/bali_pass.jpg";
   import everest_base_camp from "../assets/everest_base_camp.jpg";
   import frndship from "../assets/friendship_peak.jpg";
-
-
-
 
   export default function Home() {
     const themes = [
