@@ -172,7 +172,7 @@ export default function Trekking() {
           position: relative;
           z-index: 1;
           text-align: relative;
-          padding: 40px 20px;
+          padding: 30px 20px;
           color: white;
           
           font-family: Arial, sans-serif;
@@ -186,7 +186,7 @@ export default function Trekking() {
 
         .trekking-content p {
           font-size: 1.2rem;
-          margin: 10px 0;
+          margin: 8px 0;
           text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
       `}</style>
